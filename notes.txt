@@ -19,15 +19,32 @@ class MyModel(models.Model):
 
 
 ADMIN
+(tutorial part 7)
 add our app to admin
 
 from .models import MyModel
 admin.site.register(MyModel)
 
+adding fields to your admin page
+
+from django.contrib import admin
+from .models import Question, Choice
+class QuestionAdmin(admin.ModelAdmin):
+    fields = ['pub_date', 'question_text']
+admin.site.register(Question, QuestionAdmin)
+
+displaying the columns
+list_display = ['field01', 'field02', ...]
 
 
 
+URLS
+namespacing URL names
+my_app/urls.py
+app_name = 'polls'
 
+then to reference:
+{% url 'polls:view_name' parameter %}
 
 
 
