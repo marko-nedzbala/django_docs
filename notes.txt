@@ -1,0 +1,60 @@
+
+$ django-admin startproject mysite folder
+
+$ python manage.py makemigrations app_name
+
+$ python manage.py migrate
+
+Adding an app to settings.py
+app_name.apps.AppNameConfig
+
+
+MODELS
+
+class MyModel(models.Model):
+    ...
+    def __str__(self):
+        return self.field_name
+
+
+
+ADMIN
+add our app to admin
+
+from .models import MyModel
+admin.site.register(MyModel)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
