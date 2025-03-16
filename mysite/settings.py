@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # our apps
     'polls.apps.PollsConfig',
+    'django_models.apps.DjangoModelsConfig',
 ]
 
 MIDDLEWARE = [

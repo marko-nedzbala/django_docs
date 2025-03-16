@@ -1,5 +1,7 @@
 
 $ django-admin startproject mysite folder
+$ python manage.py startapp my_app
+
 
 $ python manage.py makemigrations app_name
 
@@ -9,12 +11,44 @@ Adding an app to settings.py
 app_name.apps.AppNameConfig
 
 
+
+
+
+
+
+
+
+
+
+
+
 MODELS
 
 class MyModel(models.Model):
     ...
     def __str__(self):
         return self.field_name
+
+field options
+null: is database-related, if True (null) will store empty values as NULL in the database
+blank: validation-related, if True (blank) will allow blank values
+
+Choices
+MY_CHOICE = [
+    ('Aa', 'A stuff'),
+    ('Bb', 'B stuff'),
+]
+also acceptable
+MY_CHOICE = {
+    'Aa': 'A stuff',
+    'Bb': 'B stuff',
+}
+a_choice = models.CharField(max_length=2, choices=MY_CHOICE)
+
+the display value for a field with choices can be accessed using get_FOO_display()
+
+
+
 
 
 
@@ -35,6 +69,17 @@ admin.site.register(Question, QuestionAdmin)
 
 displaying the columns
 list_display = ['field01', 'field02', ...]
+
+
+
+
+
+
+
+
+
+
+
 
 
 
