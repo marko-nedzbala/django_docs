@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third party apps
-    'debug_toolbar',
+    # 'debug_toolbar',
 
     # our apps
     'polls.apps.PollsConfig',
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # third party
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -110,9 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-INTERNALS_IPS = [
-    '127.0.0.1',
-]
+# INTERNALS_IPS = [
+#     '127.0.0.1',
+# ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

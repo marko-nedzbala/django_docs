@@ -27,6 +27,9 @@ class GroupAdmin(admin.ModelAdmin):
     # list_display = [field.name for field in Group._meta.get_fields()]
     list_display = ['name']
 
+@admin.register(Membership)
+class MembershipAdmin(admin.ModelAdmin):
+    list_display = ['person', 'group', 'date_joined', 'invite_reason']
 
 
 
