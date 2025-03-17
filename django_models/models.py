@@ -3,6 +3,7 @@ from django.db import models
 class Person(models.Model):
     first_name = models.CharField('person first name', max_length=30)
     last_name = models.CharField(max_length=30)
+    birth_date = models.DateField()
     
     YEAR_IN_SCHOOL_CHOICES = [
         ('FR', 'Freshamn'),
@@ -15,6 +16,25 @@ class Person(models.Model):
 
     MyType = models.TextChoices('MyType', 'Type01 Type02 Type03')
     my_type = models.CharField(blank=True, choices=MyType, max_length=8)
+
+    def __str__(self):
+        return f'{self.last_name}, {self.first_name}'
+
+    class Meta:
+        ordering = ['first_name']
+
+    def baby_boomer_status(self):
+        import datetime
+        if self.birth_date < datetime.date(1945, 8, 1):
+            return 'Pre-boomer'
+        elif self.birth_date < datetime.date(1965, 1, 1):
+            return 'Baby boomer'
+        else:
+            return 'Post-boomer'
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Group(models.Model):
     name = models.CharField(max_length=128)

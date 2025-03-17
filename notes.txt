@@ -47,6 +47,38 @@ a_choice = models.CharField(max_length=2, choices=MY_CHOICE)
 
 the display value for a field with choices can be accessed using get_FOO_display()
 
+adding meta data, model metadata is anything that is not a field:
++ordering
++database table name
+
+MyModel
+    class Meta:
+        ordering = ['first_name']
+
+Manager
+is the most important attribute of a model, the interface in which database query operations are provided to Django, and retrieve the instances from the database
+default is named 'objects'
+
+custom methods on a model: "row-level" functionality
+Manager ()s are intended for "table-wide" things
+
+should always define
+    __str__()
+    get_absolute_url()
+
+MyModel:
+    def save(self, **kwargs):
+        do_something()
+        super().save(**kwargs)
+        do_something()
+
+
+
+
+
+
+
+
 
 
 
