@@ -1,6 +1,6 @@
 from django.db.models import F
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpRequest
 from django.urls import reverse
 from .models import Choice, Question
 from django.views import generic
@@ -23,6 +23,23 @@ from django.utils import timezone
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'polls/results.html', {'question': question})
+
+# https://stackoverflow.com/questions/39003732/display-django-pandas-dataframe-in-a-django-template
+import pandas as pd
+import json
+def test_pandas(request):
+    data = {'Name': ['Alice', 'Bob', 'Charlie'],
+            'Age': [25, 30, 28],
+            'City': ['New York', 'London', 'Paris']}
+    df = pd.DataFrame(data)
+    # return render(request, 'polls/pands.html', {'df': df})
+    # return HttpResponse(df.to_html())
+
+    json_records = df.reset_index().to_json(orient='records')
+    data = []
+    data = json.loads(json_records)
+    context = {'d': data}
+    return render(request, 'polls/pands.html', context)
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
