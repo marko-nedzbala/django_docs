@@ -79,8 +79,14 @@ MyModel:
 
 
 
+DATA
+$ chmod +x manage.py
 
+data dump
+$ ./manage.py dumpdata > data_dump.json
 
+data load
+$ ./manage.py loaddata data_dump.json
 
 
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import (
     Person, Album, Musician, Manufacturer, Car,
-    Group, Membership
+    Group, Membership, Blog, Author, Entry
 )
 
 # Register your models here.
@@ -31,7 +31,17 @@ class GroupAdmin(admin.ModelAdmin):
 class MembershipAdmin(admin.ModelAdmin):
     list_display = ['person', 'group', 'date_joined', 'invite_reason']
 
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ['name', 'tagline']
 
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email']
+
+@admin.register(Entry)
+class EntryAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Entry._meta.get_fields() if not field.many_to_many]
 
 
 
