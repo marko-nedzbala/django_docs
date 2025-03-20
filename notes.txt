@@ -1,4 +1,17 @@
 
+LEFT OFF
+Filters can reference fields on the modle
+
+
+
+
+
+
+
+
+
+
+
 $ django-admin startproject mysite folder
 $ python manage.py startapp my_app
 
@@ -71,6 +84,37 @@ MyModel:
         do_something()
         super().save(**kwargs)
         do_something()
+
+Model class: represents a database table
+Instance of class: represents a particular record in the database table
+my = MyModel(name='Bob')
+my.save()
+
+to create and save in a single step
+my.create()
+
+Saving changes to an object (UPDATE)
+my.property_name = 'new name'
+my.save()
+
+Retrieving objects
+construct a QuerySet via a Manager
+QuerySet (SELECT): collection of objects from your database
+Filter (WHERE or LIMIT)
+
+each model has at least 1 Manager, called objects by defaults
+Managers are accessible only via model classes, not model instances, this enforces a separation between "table-level" (the Model) and "record-level" operations (the model instance)
+MyModel.objects
+MyModel.objects.all()
+
+but will use filter()
+MyModel.objects.filter(pub_date__year=2006
+
+Field lookups
+field__lookuptype=value
+
+
+
 
 
 
