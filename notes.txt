@@ -184,7 +184,25 @@ the first manager is considered the default manager
 
 Managers must be allowed to be copied
 
+Raw SQL
+should escape characters with params
 
+to protect against SQL injvection do not include quotes around %s placeholders
+
+Manager.raw()
+
+params is a list or dictionary of parameters
+name = 'bob'
+MyModel.objects.raw('SELECT * FROM my_person WHERE last_name = %s', [name])
+
+Executing custom SQL directly
+from django.db import connection the default database connection
+
+with connection.cursor() as cursor():
+    cursor.execute('sql statement')
+
+Database transactions
+each view is enclosed in a transaction
 
 
 
