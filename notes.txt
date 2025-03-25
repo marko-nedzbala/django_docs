@@ -1,6 +1,6 @@
 
 LEFT OFF
-Filters can reference fields on the modle
+Performing raw SQL Queries
 
 Data Science Part 1: 20:50:00
 
