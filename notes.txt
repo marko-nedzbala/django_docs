@@ -166,39 +166,23 @@ django.contrib.postgres
 Elastic: paid
 Solr: Apache open-source
 
+Managers
+manager: table-level functionality to your models
+row-level: custom methods
 
+class MyManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().someFilter(...)
 
+class MyModel(models.Model):
+    column01 = models.CharField(max_length=100)
 
+    objects = models.Manager()  # the default manager
+    my_objects = MyManager()    # the custom manager
 
+the first manager is considered the default manager
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Managers must be allowed to be copied
 
 
 
