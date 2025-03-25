@@ -204,6 +204,14 @@ with connection.cursor() as cursor():
 Database transactions
 each view is enclosed in a transaction
 
+Fixtures
+fixture: is a collection foles that contain the serialized contents of the database
+
+produce a fixture
+$ python manage.py dumpdata
+
+use a fixture
+$ django-admin loaddata fixture_label
 
 
 DATA
