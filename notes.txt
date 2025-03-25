@@ -2,7 +2,7 @@
 LEFT OFF
 Filters can reference fields on the modle
 
-
+Data Science Part 1: 20:50:00
 
 
 
@@ -113,6 +113,87 @@ MyModel.objects.filter(pub_date__year=2006
 Field lookups
 field__lookuptype=value
 
+Comparing fields on the model
+compare the value of a model field with another field on the same model
+F() expressions, instances of F() act as a reference to a model field within a query
+from django.db.models import F
+# example
+Entry.objects.filter(field_name_01__gt=F('field_name_02'))
+
+can cache a QuerySet just by saving it to a variable, but you must query the entire QuerySte
+query_set = MyModel.objects.all()   # make the query
+queryset[5] # will not be cached
+[entry for entry in queryset] # queries the database
+queryset[5] # use the cache
+
+KT() expressions: represents the text value of a key, index or path transform of JSONField
+
+Q objects allow complex lookups
+
+
+Aggregation
+when you need to retrieve values that are derived by summarizing or aggregating a collection of objects
+
+MyModel.objects.count()
+MyModel.objects.aggregate(Avg('field_name'))
+
+2 ways to generate aggregats:
+1.) generate summary values over an entire QuerySet
+MyModel.objects.aggregate(Avg('field_name'))
+MyModel.objects.aggregate(Avg('field_name'), Max('field_name'))
+
+2.) generate an independent summary for each object in a QuerySet
+prt-object summaries can be generated using annotate(), each object in the QuerySet will be annotated with the specified values
+q = MyModel.objects.annotate(Count('authors'))
+q[0]                    # first object
+q[0].fieldName__count   # field name, aggregate
+
+Order of annotate() and filter() clauses
+order matters when applied to a query
+annotate() is computed over the state of the query up to the point where the annotation is requested
+whichever is applied first, gives the result to the second
+annotate() -> results from annotate() are applied to filter()
+
+can inspect a query with str(myQuerySet.query)
+
+values() will group based on the column name provided
+
+
+Search
+provides support for searching in PostgreSQL
+django.contrib.postgres
+
+Elastic: paid
+Solr: Apache open-source
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -172,6 +253,93 @@ app_name = 'polls'
 
 then to reference:
 {% url 'polls:view_name' parameter %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

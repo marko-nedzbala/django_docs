@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # third party apps
     # 'debug_toolbar',
+    'django_extensions',
 
     # our apps
     'polls.apps.PollsConfig',
