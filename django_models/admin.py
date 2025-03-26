@@ -35,9 +35,9 @@ class MembershipAdmin(admin.ModelAdmin):
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['name', 'tagline']
 
-@admin.register(Author)
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email']
+# @admin.register(Author)
+# class AuthorAdmin(admin.ModelAdmin):
+#     list_display = ['name', 'email']
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
