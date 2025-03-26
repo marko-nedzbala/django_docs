@@ -152,6 +152,17 @@ class OpinionPoll(models.Model):
 class Response(models.Model):
     poll = models.ForeignKey(OpinionPoll, on_delete=models.CASCADE)
 
+class Contact(models.Model):
+    subject = models.CharField(max_length=100)
+    message = models.CharField(max_length=200)
+    sender = models.EmailField(max_length=100)
+    cc_myself = models.BooleanField(default=False)
+
+
+
+
+
+
 
 
 

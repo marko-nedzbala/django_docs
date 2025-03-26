@@ -261,7 +261,7 @@ template code
 
 Python code
 def my_redirect(request):
-    return HttpResponseRedirect(reverse('news-year-archive', arges=(year,) ))
+    return HttpResponseRedirect(reverse('news-year-archive', args=(year,) ))
 
 URL Namespaces
 allow you to unqiuely reverse named URL patterns even if different application use the same URL names
@@ -287,28 +287,90 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
 ]
 
+from django.views.decorators.http import require_http_methods
+@require_http_methods(['GET', 'POST'])
+def my_view(request):
+    ...
+
+File uploads
+a view handling a form will receive the file data in request.FILES, a dictionary containing a key for each FileField, so can be accessed via request.FILES['file']
+will only contain data if the request method was (otherwise request.FILES will be empty):
+    POST
+    at least 1 file field was actually posted
+    <form> that posted the request has the attribute enctype="multipart/form-data"
+
+forms.py
+
+from django import forms
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
+
+views.py
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from .forms import UploadFileForm
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            my_hander(request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload.html', {'form': form})
+
+passing request.FILES into the form's constructor, this is how data gets bound into a form
+
+if a file is being saved to a Model, with a FileField, use ModelForm
+form.save() will call the upload_to argument in FileField
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = MyModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            # file is saved
+            form.save()
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = MyModelForm()
+    return render(request, 'upload.html', {'form': form})
+
+Sessions
+Django sessions framework is soley cookie-based
 
 
 
+Forms
 
+forms.py
 
+from django import forms
+class NameForm(forms.Form):
+    your_name = forms.CharField(label='Your name', max_length=100)
 
+Form instance has is_valid(), runs validation routines for all its fields, when this method is called
+if all fields contain valid data it will:
+    return True
+    place the form's data in its cleaned_data attribute
 
+need to create a form instance and populate it with data from the request
+from .forms import NameForm
+def get_name(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            # process the data in form.cleaned_data as needed
+            # redirect to a new URL
+            return HttpResponseRedirect('/success/')
+    else:
+        form = NameForm()
+    return render(reqiest, 'name.html', {'form': form})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+binding data to the form
+form = NameForm(request.POST)
 
 
 

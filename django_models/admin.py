@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from .models import (
     Person, Album, Musician, Manufacturer, Car,
-    Group, Membership, Blog, Author, Entry, Dog
+    Group, Membership, Blog, Author, Entry, Dog,
+    Contact
 )
 
 # Register your models here.
@@ -47,7 +48,9 @@ class EntryAdmin(admin.ModelAdmin):
 class DogAdmin(admin.ModelAdmin):
     list_display = ['name', 'data']
 
-
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Contact._meta.get_fields()]
 
 
 
