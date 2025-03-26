@@ -247,28 +247,45 @@ list_display = ['field01', 'field02', ...]
 
 
 
-
-
-
-
-
-
-
-
-
 URLS
+Reverse resolution of URLs
+templates: url template tag
+Python code: reverse() function
+higher level code related to handling of URLs of Django model instances: get_absolute_url()
+
+URLconf entry
+path('articles/<int:year>/', views.year_archive, name='news-year-archive')
+
+template code
+<a href="{% url 'news-year-archive' 2021 %}">2012</a>
+
+Python code
+def my_redirect(request):
+    return HttpResponseRedirect(reverse('news-year-archive', arges=(year,) ))
+
+URL Namespaces
+allow you to unqiuely reverse named URL patterns even if different application use the same URL names
+
+URL namespace comes in 2 parts (both are strings):
+1.) application namespace: the name of the application
+2.) instance namespace: a specific instance of an application, can be the same as he application namespace
+
+app_name:page_name
+
 namespacing URL names
 my_app/urls.py
 app_name = 'polls'
+urlpatterns = [
+    path('', views.IndexView.as_view(), name='index'),
+]
 
 then to reference:
 {% url 'polls:view_name' parameter %}
 
-
-
-
-
-
+urls.py
+urlpatterns = [
+    path('polls/', include('polls.urls')),
+]
 
 
 
