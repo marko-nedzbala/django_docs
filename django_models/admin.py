@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import (
     Person, Album, Musician, Manufacturer, Car,
     Group, Membership, Blog, Author, Entry, Dog,
-    Contact
+    Contact, Publisher
 )
 
 # Register your models here.
@@ -52,7 +52,9 @@ class DogAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Contact._meta.get_fields()]
 
-
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    list_display = ['name', 'address', 'city', 'state_provine', 'country', 'website']
 
 
 

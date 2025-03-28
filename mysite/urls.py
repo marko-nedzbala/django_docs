@@ -16,9 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth import views as auth_views
+from django_models import views
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('docs/', include('django_models.urls')),
+
+    # user accounts
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/profile/', auth_views.LoginView.as_view(template_name='django_models/index.html')),
+
 ]

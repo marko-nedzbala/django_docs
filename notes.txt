@@ -358,55 +358,96 @@ if all fields contain valid data it will:
 
 need to create a form instance and populate it with data from the request
 from .forms import NameForm
-def get_name(request):
+def save_example(request):
     if request.method == 'POST':
-        form = NameForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
-            # process the data in form.cleaned_data as needed
-            # redirect to a new URL
-            return HttpResponseRedirect('/success/')
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            sender = form.cleaned_data['sender']
+            cc_myself = form.cleaned_data['cc_myself']
+
+            contact = Contact(subject=subject, message=message, sender=sender, cc_myself=cc_myself)
+            contact.save()
+
+            # form.save()
+            print('Saved')
+
+            # any of these are acceptable redirects
+            # return HttpResponseRedirect('')
+            # return HttpResponseRedirect('http://localhost:8000/polls/')
+            # return HttpResponseRedirect(reverse('polls:pandas'))
     else:
-        form = NameForm()
-    return render(reqiest, 'name.html', {'form': form})
+        form = ContactForm()
 
-binding data to the form
-form = NameForm(request.POST)
+    return render(request, 'django_models/upload.html', {'form': form})
 
+unbound form: has no data associated with it, when rendered it will be empty or contain default values
+bound form: has submitted data, will be used to tell if that data is valid
+is_bound tells us if a form is bound or not
 
-
-
-
-
+action in the forms tells the form where to render to
 
 
-
+Templates
 
 
 
+Class-based views
+
+can support headers to allow easier updates without costing too much overhead
+
+can organize code related to specific HTTP methods
+
+from django.http import HttpResponseRedirect
+from django.views import view
+
+class MyView(View):
+    def get(self, request):
+        # view logic
+        return HttpResponse('result')
+
+method_decorator decorator transforms a function decorator into a method decorator so that it can be used on an instance method
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class MyModelCreateView(LoginRequiredMixin, CreateView):
+    model = MyModel
+    fields = ['fieldName01']
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
 
 
 
+Migrations
+
+$ python manage.py makemigrations --name migration_name app_name
 
 
+Django authentication system
 
+changing passwords
+$ python manage.py changepassword *username*
 
+can change it programmatically
+from django.contrib.auth.models import User
+u = User.objects.get(username='bob')
+u.set_password('new password')
+u.save()
 
+https://docs.djangoproject.com/en/5.1/topics/auth/default/#authenticating-users
 
+The LoginRequiredMixin
+can be used with a ClassBased view to log a user in
+https://docs.djangoproject.com/en/5.1/topics/auth/default/#the-loginrequiredmixin-mixin
 
+Authentication Views
+https://docs.djangoproject.com/en/5.1/topics/auth/default/#module-django.contrib.auth.views
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Custom User Full Example
+https://docs.djangoproject.com/en/5.1/topics/auth/customizing/#custom-users-and-proxy-models
 
 
 

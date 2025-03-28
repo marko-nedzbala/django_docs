@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+        <h2>Publishers</h2>
+        
+
+
+        <ul>
+            {% for publisher in publishers %}
+                <li>{{ publisher.name }}
+                    <ul style="list-style-type: square;">
+                        <li>{{ publisher.address }}</li>
+                        <li>{{ publisher.city }}</li>
+                        <li>{{ publisher.state_provine }}</li>
+                        <li>{{ publisher.country }}</li>
+                        <li>{{ publisher.website }}</li>
+                    </ul>
+                </li>
+
+            {% endfor %}
+        </ul>
+    {% endblock %}
+</body>
+</html>
